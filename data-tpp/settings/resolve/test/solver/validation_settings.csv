@@ -1,0 +1,7 @@
+scenarios,setting_name,value,timestamp,period,solver_category
+base,validate_solution,true,1,1,solution_check
+base,validate_duals,true,1,1,solution_check
+base,validate_slacks,true,1,1,solution_check
+base,feasibility_tolerance,1e-6,1,1,numeric
+base,optimality_tolerance,1e-6,1,1,numeric
+base,integrality_tolerance,1e-10,1,1,numeric 

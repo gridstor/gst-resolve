@@ -1,0 +1,7 @@
+scenario,zone,year,reserve_type,requirement_fraction,timestamp,period
+base,CAISO,2025,regulation_up,0.03,1,1
+base,CAISO,2025,regulation_down,0.03,1,1
+base,CAISO,2025,spinning,0.03,1,1
+base,CAISO,2026,regulation_up,0.03,1,1
+base,CAISO,2026,regulation_down,0.03,1,1
+base,CAISO,2026,spinning,0.03,1,1 

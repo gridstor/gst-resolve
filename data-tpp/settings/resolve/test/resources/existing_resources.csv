@@ -1,0 +1,6 @@
+scenario,resource,zone,technology,capacity_mw,pmin_fraction,pmax_fraction,variable_cost_per_mwh,fixed_cost_per_mw_yr,timestamp,period
+base,CAISO_Hydro,CAISO,hydro,7000,0.2,0.8,2.0,50000,1,1
+base,BANC_Hydro,BANC,hydro,3000,0.2,0.8,2.0,50000,1,1
+base,LDWP_Hydro,LDWP,hydro,1500,0.2,0.8,2.0,50000,1,1
+base,NW_Hydro,NW,hydro,30000,0.2,0.8,2.0,50000,1,1
+base,SW_Hydro,SW,hydro,8000,0.2,0.8,2.0,50000,1,1 

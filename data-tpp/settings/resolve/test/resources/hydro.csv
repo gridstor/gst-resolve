@@ -1,0 +1,6 @@
+resource,zone,capacity_mw,pmin_fraction,pmax_fraction,variable_cost_per_mwh
+CAISO_Hydro,CAISO,7000,0.2,0.8,2.0
+BANC_Hydro,BANC,3000,0.2,0.8,2.0
+LDWP_Hydro,LDWP,1500,0.2,0.8,2.0
+NW_Hydro,NW,30000,0.2,0.8,2.0
+SW_Hydro,SW,8000,0.2,0.8,2.0 

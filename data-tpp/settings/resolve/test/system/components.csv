@@ -1,0 +1,4 @@
+component_name,component_type,scenario
+CAISO_load,load,base
+CAISO_Hydro,resource,base
+CAISO_transmission,transmission,base 

@@ -1,0 +1,5 @@
+scenarios,setting_name,value,timestamp,period,validation_type
+base,validate_temporal,true,1,1,temporal
+base,validate_profiles,true,1,1,profile
+base,validate_load,true,1,1,load
+base,error_on_fail,true,1,1,system 

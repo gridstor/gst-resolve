@@ -1,0 +1,6 @@
+scenarios,system_name,config_type,timestamp,period,description
+base,test,resolve_case,1,1,Test system configuration 
+setting_name,value,scenario
+name,test,base
+description,Test system configuration,base
+model_type,resolve,base 

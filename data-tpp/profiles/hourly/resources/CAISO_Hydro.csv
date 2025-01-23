@@ -1,0 +1,5 @@
+timestamp,hour,capacity_factor,scenario
+2025-01-01-01,1,0.239780,base
+2025-01-01-02,2,0.239780,base
+...
+2025-12-31-24,8760,0.136131,base 

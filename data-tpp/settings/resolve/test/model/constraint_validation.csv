@@ -1,0 +1,5 @@
+scenarios,constraint_type,validation_rule,threshold,timestamp,period,model_component
+base,load_balance,sum_to_zero,0.001,1,1,energy_balance
+base,transmission_flow,capacity_limit,0.001,1,1,transmission
+base,reserve_requirement,minimum_level,0.001,1,1,reserves
+base,hydro_energy,annual_limit,0.001,1,1,resources 

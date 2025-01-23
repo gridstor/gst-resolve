@@ -1,0 +1,35 @@
+2025-01-22 16:05:55.094 | DEBUG    | __main__:_run_case:121 - === Starting _run_case ===
+2025-01-22 16:05:55.099 | DEBUG    | __main__:_run_case:122 - Base directory: C:\Users\rudde\Documents\gst-resolve\gst-resolve\data-tpp
+2025-01-22 16:05:55.104 | DEBUG    | __main__:_run_case:123 - Case name: test
+2025-01-22 16:05:55.112 | DEBUG    | __main__:_run_case:127 - Loading cases from: C:\Users\rudde\Documents\gst-resolve\gst-resolve\data-tpp\settings\resolve\cases_to_run.csv
+2025-01-22 16:05:55.125 | DEBUG    | __main__:_run_case:131 - Selected case: {'case_name': 'test', 'system': 'test'}
+2025-01-22 16:05:55.131 | DEBUG    | __main__:_run_case:140 - Data dictionary: {'dir_structure': <new_modeling_toolkit.core.utils.util.DirStructure object at 0x0000014AA30BF7C0>, 'system': 'test', 'name': 'test', 'case_name': 'test'}
+2025-01-22 16:05:55.136 | DEBUG    | __main__:_run_case:144 - Attributes file path: C:\Users\rudde\Documents\gst-resolve\gst-resolve\data-tpp\settings\resolve\test\attributes.csv
+2025-01-22 16:05:55.146 | DEBUG    | new_modeling_toolkit.core.component:from_csv:418 - Reading from C:\Users\rudde\Documents\gst-resolve\gst-resolve\data-tpp\settings\resolve\test\attributes.csv
+2025-01-22 16:05:55.182 | ERROR    | __main__:main:248 - Case test failed. See error traceback below:
+2025-01-22 16:05:55.258 | ERROR    | __main__:main:249 - Traceback (most recent call last):
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 234, in main
+    resolve_model = _run_case(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 149, in _run_case
+    _, resolve_model = model_formulation.ResolveCase.from_csv(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\core\component.py", line 432, in from_csv
+    return cls._parse_vintages(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\core\component.py", line 322, in _parse_vintages
+    scalar_attrs = cls._parse_scalar_attributes(filename=filename, input_df=vintage_slice, scenarios=scenarios)
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\core\component.py", line 281, in _parse_scalar_attributes
+    input_df.loc[input_df["attribute"].isin(attribute_names), :]
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\util\_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\core\frame.py", line 5399, in drop
+    return super().drop(
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\util\_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\core\generic.py", line 4505, in drop
+    obj = obj._drop_axis(labels, axis, level=level, errors=errors)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\core\generic.py", line 4546, in _drop_axis
+    new_axis = axis.drop(labels, errors=errors)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\core\indexes\base.py", line 6934, in drop
+    raise KeyError(f"{list(labels[mask])} not found in axis")
+KeyError: "['timestamp'] not found in axis"
+
+2025-01-22 16:05:55.279 | INFO     | __main__:main:255 - Done.

@@ -1,0 +1,28 @@
+2025-01-22 15:31:24.053 | DEBUG    | __main__:_run_case:133 - Running case with data: {'dir_structure': <new_modeling_toolkit.core.utils.util.DirStructure object at 0x0000022886344C70>, 'system': 'test', 'name': 'test', 'case_name': 'test'}
+2025-01-22 15:31:24.063 | DEBUG    | __main__:_run_case:137 - Looking for attributes file at: C:\Users\rudde\Documents\gst-resolve\gst-resolve\data-tpp\settings\resolve\test\test\attributes.csv
+2025-01-22 15:31:24.073 | DEBUG    | new_modeling_toolkit.core.component:from_csv:418 - Reading from C:\Users\rudde\Documents\gst-resolve\gst-resolve\data-tpp\settings\resolve\test\test\attributes.csv
+2025-01-22 15:31:24.084 | ERROR    | __main__:main:233 - Case test failed. See error traceback below:
+2025-01-22 15:31:24.098 | ERROR    | __main__:main:234 - Traceback (most recent call last):
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 219, in main
+    resolve_model = _run_case(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 139, in _run_case
+    _, resolve_model = model_formulation.ResolveCase.from_csv(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\core\component.py", line 420, in from_csv
+    input_df = pd.read_csv(filename).sort_index()
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\util\_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\util\_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\parsers\readers.py", line 950, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\parsers\readers.py", line 605, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\parsers\readers.py", line 1442, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\parsers\readers.py", line 1735, in _make_engine
+    self.handles = get_handle(
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\common.py", line 856, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\rudde\\Documents\\gst-resolve\\gst-resolve\\data-tpp\\settings\\resolve\\test\\test\\attributes.csv'
+
+2025-01-22 15:31:24.109 | INFO     | __main__:main:240 - Done.

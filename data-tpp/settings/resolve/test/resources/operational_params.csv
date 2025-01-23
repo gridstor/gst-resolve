@@ -1,0 +1,2 @@
+scenario,technology,min_up_time_hrs,min_down_time_hrs,ramp_rate_fraction_per_hr,start_cost_per_mw,timestamp,period,tech_type
+base,hydro,1,1,1.0,0,1,1,dispatchable

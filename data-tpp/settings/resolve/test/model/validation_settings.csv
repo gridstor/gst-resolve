@@ -1,0 +1,6 @@
+scenarios,setting_name,value,timestamp,period,validation_category
+base,validate_inputs,true,1,1,model_inputs
+base,validate_outputs,true,1,1,model_outputs
+base,validate_constraints,true,1,1,model_constraints
+base,validate_objective,true,1,1,model_objective
+base,error_tolerance,0.001,1,1,model_numeric 

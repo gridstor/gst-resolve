@@ -1,0 +1,6 @@
+scenarios,component_type,component_scenario,timestamp,period
+base,load,base,1,1
+base,fuel,base,1,1
+base,transmission,base,1,1
+base,temporal,default,1,1
+base,policy,base,1,1 

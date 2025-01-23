@@ -1,0 +1,5 @@
+scenario,from_zone,to_zone,capacity_mw,loss_factor,variable_cost_per_mwh,timestamp,period
+base,NW,CAISO,7500,0.05,5.0,1,1
+base,SW,CAISO,5000,0.05,5.0,1,1
+base,BANC,CAISO,3000,0.02,2.0,1,1
+base,LDWP,CAISO,2500,0.02,2.0,1,1 

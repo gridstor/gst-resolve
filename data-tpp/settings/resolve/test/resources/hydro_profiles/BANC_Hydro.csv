@@ -1,0 +1,5 @@
+scenario,timestamp,hour_id,profile,period,profile_type,zone
+base,1,1,0.219907,1,hydro,BANC
+base,1,2,0.219907,1,hydro,BANC
+...
+base,12,24,0.100370,1,hydro,BANC 

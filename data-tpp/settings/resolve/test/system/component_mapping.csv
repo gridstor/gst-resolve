@@ -1,0 +1,3 @@
+component_name,profile_file,scenario
+CAISO_load,CAISO_load.csv,base
+CAISO_Hydro,CAISO_Hydro.csv,base 

@@ -1,0 +1,10 @@
+2025-01-22 15:36:52.771 | DEBUG    | __main__:_run_case:121 - === Starting _run_case ===
+2025-01-22 15:36:52.771 | ERROR    | __main__:main:243 - Case test failed. See error traceback below:
+2025-01-22 15:36:52.776 | ERROR    | __main__:main:244 - Traceback (most recent call last):
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 229, in main
+    resolve_model = _run_case(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 122, in _run_case
+    logger.debug(f"Base directory: {dir_str.data_folder}")
+AttributeError: 'DirStructure' object has no attribute 'data_folder'. Did you mean: '_data_folder'?
+
+2025-01-22 15:36:52.781 | INFO     | __main__:main:250 - Done.

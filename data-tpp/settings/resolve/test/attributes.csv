@@ -1,0 +1,14 @@
+attribute,value,scenario
+name,test,base
+system,test,base
+case_name,test,base
+model_type,resolve,base
+temporal_scenario,default,base
+solver,appsi_highs,base
+num_time_steps_per_period,24,base
+num_investment_periods,2,base
+num_representative_periods,12,base
+num_weather_years,1,base
+weather_years,2010,base
+modeled_years,2025;2026,base
+discount_rate,0.07,base 
