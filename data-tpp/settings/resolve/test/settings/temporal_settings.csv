@@ -1,0 +1,9 @@
+setting_name,value,scenario
+num_time_steps_per_period,24,base
+num_investment_periods,2,base
+num_representative_periods,12,base
+num_weather_years,1,base
+weather_years,2010,base
+modeled_years,2025;2026,base
+start_year,2025,base
+end_year,2026,base 

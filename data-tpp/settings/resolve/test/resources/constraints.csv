@@ -1,0 +1,6 @@
+scenario,resource,constraint_type,value,timestamp,period,constraint_category
+base,CAISO_Hydro,annual_energy_gwh,15000,1,1,energy_limit
+base,BANC_Hydro,annual_energy_gwh,6000,1,1,energy_limit
+base,LDWP_Hydro,annual_energy_gwh,3000,1,1,energy_limit
+base,NW_Hydro,annual_energy_gwh,60000,1,1,energy_limit
+base,SW_Hydro,annual_energy_gwh,16000,1,1,energy_limit

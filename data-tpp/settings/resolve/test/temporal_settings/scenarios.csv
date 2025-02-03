@@ -1,0 +1,2 @@
+scenario,description,period_map,temporal_map,period_weights,timestamp,period,temporal_type
+base,Default 12-period representation,period_map.csv,temporal_map.csv,period_weights.csv,1,1,representative_periods 

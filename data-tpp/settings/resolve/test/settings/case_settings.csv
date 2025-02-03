@@ -1,0 +1,6 @@
+setting_name,value,scenario
+system,test,base
+model_type,resolve,base
+temporal_scenario,default,base
+solver,appsi_highs,base
+log_level,INFO,base 

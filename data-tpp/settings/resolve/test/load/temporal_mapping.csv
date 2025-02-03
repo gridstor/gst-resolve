@@ -1,0 +1,6 @@
+scenarios,timestamp,period,temporal_structure,zone,mapping_type
+base,1,1,default,CAISO,hourly_to_period
+base,1,1,default,BANC,hourly_to_period
+base,1,1,default,LDWP,hourly_to_period
+base,1,1,default,NW,hourly_to_period
+base,1,1,default,SW,hourly_to_period 

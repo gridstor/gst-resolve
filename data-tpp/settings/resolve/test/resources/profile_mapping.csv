@@ -1,0 +1,6 @@
+scenarios,resource,profile_type,profile_file,timestamp,period,temporal_structure,mapping_type
+base,CAISO_Hydro,hydro,CAISO_Hydro.csv,1,1,default,hourly_to_period
+base,BANC_Hydro,hydro,BANC_Hydro.csv,1,1,default,hourly_to_period
+base,LDWP_Hydro,hydro,LDWP_Hydro.csv,1,1,default,hourly_to_period
+base,NW_Hydro,hydro,NW_Hydro.csv,1,1,default,hourly_to_period
+base,SW_Hydro,hydro,SW_Hydro.csv,1,1,default,hourly_to_period 

@@ -1,0 +1,5 @@
+scenario,year,fuel,zone,price_mmbtu,timestamp,period,fuel_type
+base,2025,natural_gas,CAISO,4.50,1,1,fossil
+base,2025,coal,CAISO,2.50,1,1,fossil
+base,2026,natural_gas,CAISO,4.60,1,1,fossil
+base,2026,coal,CAISO,2.55,1,1,fossil 

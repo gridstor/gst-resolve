@@ -1,0 +1,16 @@
+scenarios,setting_name,value,timestamp,period,setting_category,system_name
+base,model_type,resolve,1,1,system,test
+base,solver,appsi_highs,1,1,solver,test
+base,temporal_scenario,default,1,1,temporal,test
+start_year,2025,base,1,1,temporal
+end_year,2026,base,1,1,temporal
+weather_year,2010,base,1,1,temporal
+carbon_cap_type,mass_based,base,1,1,policy
+carbon_cap_zone,CAISO,base,1,1,policy
+carbon_cap_mmt,30,base,1,1,policy
+rps_zone,CAISO,base,1,1,policy
+transmission_scenario,base,base,1,1,transmission
+load_scenario,base,base,1,1,load
+fuel_scenario,base,base,1,1,fuel
+symbolic_solver_labels,false,base,1,1,solver_setting
+log_level,INFO,base,1,1,system_setting 

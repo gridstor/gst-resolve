@@ -1,0 +1,13 @@
+scenario,timestamp,period_id,hours_in_period,period_weight,period,temporal_structure
+base,1,1,24,730.5,1,default
+base,2,2,24,730.5,1,default
+base,3,3,24,730.5,1,default
+base,4,4,24,730.5,1,default
+base,5,5,24,730.5,1,default
+base,6,6,24,730.5,1,default
+base,7,7,24,730.5,1,default
+base,8,8,24,730.5,1,default
+base,9,9,24,730.5,1,default
+base,10,10,24,730.5,1,default
+base,11,11,24,730.5,1,default
+base,12,12,24,730.5,1,default

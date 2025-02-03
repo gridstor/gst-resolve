@@ -1,0 +1,4 @@
+scenarios,setting_name,value,timestamp,period,temporal_structure,profile_type
+base,min_capacity_factor,0.2,1,1,default,hydro
+base,max_capacity_factor,0.8,1,1,default,hydro
+base,ramp_rate_limit,1.0,1,1,default,hydro 

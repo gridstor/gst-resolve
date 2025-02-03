@@ -1,0 +1,4 @@
+scenarios,profile_type_1,profile_type_2,correlation,timestamp,period,temporal_structure
+base,hydro,load,0.3,1,1,default
+base,hydro,wind,0.1,1,1,default
+base,hydro,solar,-0.2,1,1,default 

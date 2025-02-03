@@ -1,0 +1,7 @@
+scenarios,validation_type,rule_name,threshold,timestamp,period,temporal_structure
+base,temporal,missing_hours,0,1,1,default
+base,temporal,duplicate_hours,0,1,1,default
+base,profile,capacity_factor_range,0.001,1,1,default
+base,profile,ramp_rate_limit,0.001,1,1,default
+base,load,peak_load_match,0.001,1,1,default
+base,load,energy_balance,0.001,1,1,default 

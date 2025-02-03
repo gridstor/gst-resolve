@@ -1,0 +1,5 @@
+setting_name,value,scenario,resource
+capacity_mw,1000,base,CAISO_Hydro
+min_capacity_factor,0.2,base,CAISO_Hydro
+max_capacity_factor,0.8,base,CAISO_Hydro
+ramp_rate_limit,1.0,base,CAISO_Hydro 

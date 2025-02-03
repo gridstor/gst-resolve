@@ -1,0 +1,5 @@
+scenarios,status_type,acceptable_values,timestamp,period,solver_phase
+base,termination,optimal;feasible,1,1,solution
+base,solver_status,ok;normal,1,1,execution
+base,model_status,optimal;feasible,1,1,solution
+base,objective_bound,non_negative,1,1,solution 

@@ -1,0 +1,5 @@
+scenario,timestamp,hour_id,load_mw,period,zone
+base,1,1,5000,1,BANC
+base,1,2,4800,1,BANC
+...
+base,12,24,5200,1,BANC 

@@ -1,0 +1,6 @@
+scenario,zone,load_profile,timestamp,period,temporal_structure,load_type
+base,CAISO,CAISO_load.csv,1,1,default,system_load
+base,BANC,BANC_load.csv,1,1,default,system_load
+base,LDWP,LDWP_load.csv,1,1,default,system_load
+base,NW,NW_load.csv,1,1,default,system_load
+base,SW,SW_load.csv,1,1,default,system_load 

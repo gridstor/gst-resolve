@@ -1,0 +1,3 @@
+scenario,constraint_name,from_zone,to_zone,factor,timestamp,period,group_type
+base,NW_to_CAISO_path,NW,CAISO,1.0,1,1,transmission
+base,SW_to_CAISO_path,SW,CAISO,1.0,1,1,transmission 

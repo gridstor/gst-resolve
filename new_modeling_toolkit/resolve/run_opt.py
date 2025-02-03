@@ -1,6 +1,7 @@
 import contextlib
 import importlib
 import pathlib
+import shutil
 import sys
 import traceback
 from typing import Optional
@@ -14,7 +15,7 @@ from pyomo.opt import SolverFactory
 from pyomo.opt import TerminationCondition
 
 from new_modeling_toolkit import __version__
-from new_modeling_toolkit.core.utils.logging_fix import configure_logging, ThreadSafeStreamToLogger
+from new_modeling_toolkit.core import stream
 from new_modeling_toolkit.core.utils.core_utils import timer
 from new_modeling_toolkit.core.utils.util import DirStructure
 from new_modeling_toolkit.resolve import export_results
@@ -22,8 +23,6 @@ from new_modeling_toolkit.resolve import model_formulation
 from new_modeling_toolkit.resolve.export_results_summary import export_all_results_summary
 from new_modeling_toolkit.resolve.model_formulation import ResolveCase
 
-# Initialize thread-safe stream logger
-stream = ThreadSafeStreamToLogger(level="INFO")
 
 @timer
 def solve(
@@ -116,53 +115,54 @@ def get_objective_function_value(instance, output_dir: pathlib.Path):
 def _run_case(
     dir_str: DirStructure,
     resolve_settings_name: str,
-    extras: Optional[str],
-    solver_name: str,
-    log_level: str,
-    symbolic_solver_labels: bool,
-    raw_results: bool,
+    **kwargs
 ):
-    # Create ConcreteModel and link to system
+    """Initialize and run a Resolve case"""
+    logger.debug(f"=== Starting _run_case ===")
+    logger.debug(f"Base directory: {dir_str.data_dir}")
+    logger.debug(f"Case name: {resolve_settings_name}")
+    
+    # Load cases_to_run.csv
+    cases_path = dir_str.resolve_settings_dir / "cases_to_run.csv"
+    logger.debug(f"Loading cases from: {cases_path}")
+    cases_df = pd.read_csv(cases_path)
+    
+    case_row = cases_df[cases_df.case_name == resolve_settings_name].iloc[0]
+    logger.debug(f"Selected case: {case_row.to_dict()}")
+    
+    # Create data dictionary
+    data = {
+        "dir_structure": dir_str,
+        "system": case_row["system"],
+        "name": resolve_settings_name,
+        "case_name": resolve_settings_name
+    }
+    logger.debug(f"Data dictionary: {data}")
+    
+    # Get correct attributes.csv path
+    attributes_path = dir_str.resolve_settings_dir / resolve_settings_name / "attributes.csv"
+    logger.debug(f"Attributes file path: {attributes_path}")
+    
+    if not attributes_path.exists():
+        raise FileNotFoundError(f"Attributes file not found at: {attributes_path}")
+    
     _, resolve_model = model_formulation.ResolveCase.from_csv(
-        filename=dir_str.resolve_settings_dir / "attributes.csv",
-        data={"dir_structure": dir_str},
+        filename=attributes_path,
+        data=data,
         return_type=tuple,
-        name=resolve_settings_name,
+        name=resolve_settings_name
     )
-    resolve_model.system.write_json_file(output_dir=dir_str.output_resolve_dir)
-
-    if extras is not None and extras.strip():
-        plugin_modules = importlib.import_module(f"new_modeling_toolkit.resolve.extras.{extras.strip()}")
-        resolve_model = plugin_modules.main(resolve_model)
-
-    # Solve the ConcreteModel
-    with contextlib.redirect_stdout(stream):
-        # Wrap `solve()` in this redirect so that it gets saved to logging file
-        solve(resolve_model, dir_str, solver_name, log_level, symbolic_solver_labels=symbolic_solver_labels)
-
-    # Write results to system objects
-    resolve_model.update_system_with_solver_results()
-
-    # Write results
-    export_all_results_summary(resolve_case=resolve_model, output_dir=dir_str.outputs_results_summary_dir)
-    export_results.export_results(resolve_model, raw_results=raw_results)
-
-    for policy in resolve_model.system.hourly_energy_policies.values():
-        policy.check_constraint_violations(resolve_model.model)
-
-    # Output objective function
-    get_objective_function_value(resolve_model.model, dir_str.output_resolve_dir)
-
     return resolve_model
 
 
 def main(
     resolve_settings_name: Optional[str] = typer.Argument(
         None,
-        help="Name of a RESOLVE case (under ./data/settings/resolve). If `None`, will run all cases listed in ./data/settings/resolve/cases_to_run.csv",
+        help="Name of a RESOLVE case (under ./data-tpp/settings/resolve). If `None`, will run all cases listed in ./data-tpp/settings/resolve/cases_to_run.csv",
     ),
     data_folder: str = typer.Option(
-        "data", help="Name of data folder, which is assumed to be in the same folder as `new_modeling_toolkit` folder."
+        "data-tpp",
+        help="Path to data folder containing settings and other data files",
     ),
     solver_name: str = typer.Option(
         "appsi_highs",
@@ -192,12 +192,13 @@ def main(
     ),
     # TODO (2022-02-22): This should be restricted to only "approved" extras
 ) -> Optional[list[ResolveCase]]:
-    # Configure logging once at the start
-    configure_logging(log_level=log_level, log_json=log_json)
     logger.info(f"Resolve version: {__version__}")
     
-    # Create folder for the specific resolve run
-    dir_str = DirStructure(data_folder=data_folder)
+    # Create folder structure using absolute path to data-tpp
+    data_path = pathlib.Path(data_folder).absolute()
+    logger.debug(f"Using data folder: {data_path}")
+    
+    dir_str = DirStructure(data_folder=data_path)
     if resolve_settings_name:
         cases_to_run = [resolve_settings_name]
     else:
@@ -206,7 +207,11 @@ def main(
     resolve_cases = []
     for resolve_settings_name in cases_to_run:
         logger.info(f"Loading Resolve case: {resolve_settings_name}")
-        
+        # Remove default loguru logger to stderr
+        logger.remove()
+        # Set stdout logging level
+        logger.add(sys.__stdout__, level=log_level, serialize=log_json)
+
         # Make folders
         dir_str.make_resolve_dir(resolve_settings_name=resolve_settings_name, log_level=log_level)
         TempfileManager.tempdir = dir_str.output_resolve_dir
@@ -223,6 +228,7 @@ def main(
             )
             if return_cases:
                 resolve_cases.append(resolve_model)
+
         else:
             try:
                 resolve_model = _run_case(
@@ -241,6 +247,10 @@ def main(
             except Exception as e:
                 logger.error(f"Case {resolve_settings_name} failed. See error traceback below:")
                 logger.error(traceback.format_exc())
+
+        shutil.copytree(
+            dir_str.resolve_passthrough_inputs, dir_str.output_resolve_dir / "passthrough", dirs_exist_ok=True
+        )  # Fine
 
         logger.info("Done.")
 

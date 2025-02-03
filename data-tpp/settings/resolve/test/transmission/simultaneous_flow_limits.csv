@@ -1,0 +1,3 @@
+scenario,constraint_name,limit_mw,timestamp,period,constraint_type
+base,NW_to_CAISO_path,7500,1,1,flow_limit
+base,SW_to_CAISO_path,5000,1,1,flow_limit 

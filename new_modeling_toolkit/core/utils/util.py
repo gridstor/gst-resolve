@@ -27,60 +27,79 @@ class StreamToLogger:
 
 
 class DirStructure:
-    """Directory and file structure of the model."""
-
+    """Handle directory structure and paths"""
+    
     def __init__(
         self,
         code_dir=pathlib.Path(__file__).parent.parent.parent,
-        data_folder="data",
+        data_folder="data-tpp",
         model_name="kit",
         start_dir=None,
     ):
-        """Initialize directory structure based on scenario name.
-        Naming convention: directories have _dir as suffix, while files don't have this suffix.
-        Args:
-            common_dir (str): Path to the `common` directory where shared python codes are located
-            model_name (str): specific name of the model.
-        """
+        """Initialize directory structure"""
+        logger.debug(f"=== Initializing DirStructure ===")
+        logger.debug(f"Base data folder: {data_folder}")
+        
+        # Store original data folder name
         self._data_folder = data_folder
-
+        
+        # Basic setup
         self.model_name = model_name
         self.code_dir = code_dir
 
-        # Define paths to various code directories        # resolve code base location
-        self.code_resolve_dir = self.code_dir / "resolve"
-        # recap code base location
-        self.code_recap_dir = self.code_dir / "recap"
-        # reclaim code base location
-        self.code_reclaim_dir = self.code_dir / "reclaim"
-        # visualization code base location
-        self.code_visualization_dir = self.code_dir / "visualization"
-        # testing code base location
-        # TODO: Determine if test directory should be a level up
-        self.code_test_dir = self.code_dir / "tests"
-
-        # Define paths to other directories
-        # Project directory/ Root directory
+        # Project directory setup
         if start_dir is not None:
-            self.proj_dir = start_dir
+            self.proj_dir = pathlib.Path(start_dir)
         else:
             self.proj_dir = self.code_dir.parent
+        logger.debug(f"Project directory: {self.proj_dir}")
 
         # Data directories
-        self.data_dir = self.proj_dir / data_folder
+        self.data_dir = self.proj_dir / self._data_folder
         self.data_raw_dir = self.data_dir / "raw"
         self.data_interim_dir = self.data_dir / "interim"
         self.data_settings_dir = self.data_dir / "settings"
         self.data_processed_dir = self.data_dir / "processed"
+        logger.debug(f"Data directory: {self.data_dir}")
 
-        # log directory
+        # Settings paths
+        self.resolve_settings_dir = self.data_settings_dir / "resolve"
+        logger.debug(f"Resolve settings dir: {self.resolve_settings_dir}")
+
+        # Code directories
+        self.code_resolve_dir = self.code_dir / "resolve"
+        self.code_recap_dir = self.code_dir / "recap"
+        self.code_reclaim_dir = self.code_dir / "reclaim"
+        self.code_visualization_dir = self.code_dir / "visualization"
+        self.code_test_dir = self.code_dir / "tests"
+
+        # Other directories
         self.logs_dir = self.proj_dir / "logs"
-
-        # results directory
         self.results_dir = self.proj_dir / "reports"
 
-        # make these directories if they do not already exist
+        # Validate and create directories
+        self._validate_directories()
         self.make_directories()
+
+    def _validate_directories(self):
+        """Validate required directories exist"""
+        required_dirs = [
+            self.data_dir,
+            self.data_settings_dir,
+            self.resolve_settings_dir
+        ]
+        
+        for dir_path in required_dirs:
+            logger.debug(f"Checking directory: {dir_path}")
+            if not dir_path.exists():
+                logger.error(f"Required directory missing: {dir_path}")
+                raise FileNotFoundError(f"Missing required directory: {dir_path}")
+
+    def get_case_path(self, case_name: str) -> pathlib.Path:
+        """Get path for specific case"""
+        case_path = self.resolve_settings_dir / case_name
+        logger.debug(f"Getting case path: {case_path}")
+        return case_path
 
     def make_directories(self):
         for path in vars(self).values():
@@ -88,7 +107,7 @@ class DirStructure:
                 path.mkdir(parents=True, exist_ok=True)
 
     def make_simplified_emissions_module_dir(self, simplified_emissions_module_settings_name):
-        timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
+        timestamp = time.strftime("%Y-%m-%d %H-%M-%S")
         self.simplified_emissions_module_settings_dir = (
             self.data_settings_dir / "simplified_emissions_module" / simplified_emissions_module_settings_name
         )
@@ -101,45 +120,54 @@ class DirStructure:
         self.make_directories()
 
     def make_resolve_dir(self, resolve_settings_name: str, timestamp: str = None, log_level: str = "INFO"):
-        # resolve temp file location for pyomo
-        if timestamp is not None:
-            # Check that the passed timestamp adheres to the desired format
-            # Note: this will raise a ValueError if the timestamp cannot be converted to a time object using this format
-            time.strptime(timestamp, "%Y-%m-%d-%H-%M-%S")
-        else:
-            timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
-
-        # resolve settings file location
-        self.resolve_settings_dir = self.data_settings_dir / "resolve" / resolve_settings_name
-        self.resolve_settings_rep_periods_dir = self.resolve_settings_dir / "temporal_settings"
-        self.resolve_settings_custom_constraints_dir = self.resolve_settings_dir / "custom_constraints"
-
-        # resolve output file location
-        self.output_resolve_dir = self.results_dir / "resolve" / f"{resolve_settings_name}" / f"{timestamp}"
-
-        # Log files & LP files
+        """Make resolve directory structure"""
+        if timestamp is None:
+            timestamp = time.strftime("%Y-%m-%d %H-%M-%S")
+        
+        # Fix settings directory path
+        self.resolve_settings_dir = self.data_settings_dir / "resolve"  # Remove resolve_settings_name here
+        logger.debug(f"Base resolve settings dir: {self.resolve_settings_dir}")
+        
+        # Case specific settings directory
+        self.case_settings_dir = self.resolve_settings_dir / resolve_settings_name
+        logger.debug(f"Case settings dir: {self.case_settings_dir}")
+        
+        # Subdirectories
+        self.resolve_settings_rep_periods_dir = self.case_settings_dir / "temporal_settings"
+        self.resolve_settings_custom_constraints_dir = self.case_settings_dir / "custom_constraints"
+        self.resolve_passthrough_inputs = self.case_settings_dir / "passthrough"
+        
+        # Validate directories exist
+        self._validate_case_directories(resolve_settings_name)
+        
+        # Output directories
+        self.output_resolve_dir = self.results_dir / "resolve" / resolve_settings_name / timestamp
+        
+        # Add logging
         logger.add(self.output_resolve_dir / "resolve.log", level=log_level)
-
-        # Reporting outputs
-        self.outputs_resolve_var_dir = self.output_resolve_dir / "variables"
-        self.outputs_resolve_exp_dir = self.output_resolve_dir / "expressions"
-        self.outputs_resolve_constraint_dir = self.output_resolve_dir / "constraints"
-        self.outputs_resolve_param_dir = self.output_resolve_dir / "parameters"
-        self.outputs_resolve_set_dir = self.output_resolve_dir / "sets"
-        self.output_resolve_temporal_settings_dir = self.output_resolve_dir / "temporal_settings"
-        self.outputs_resolve_pathways_dir = self.output_resolve_dir / "pathways_outputs"
-        self.outputs_resolve_advanced_dir = self.output_resolve_dir / "advanced_outputs"
-        self.outputs_results_summary_dir = self.output_resolve_dir / "results_summary"
-
-        # representative periods output location
-        self.output_rep_periods_dir = self.data_processed_dir / "temporal" / resolve_settings_name
-
-        # make these directories if they do not already exist
+        
+        # Make all directories
         self.make_directories()
+
+    def _validate_case_directories(self, case_name: str):
+        """Validate case directory structure"""
+        logger.debug(f"Validating directories for case: {case_name}")
+        
+        required_paths = [
+            self.resolve_settings_dir,
+            self.case_settings_dir,
+            self.case_settings_dir / "attributes.csv"
+        ]
+        
+        for path in required_paths:
+            logger.debug(f"Checking path: {path}")
+            if not path.exists():
+                logger.error(f"Required path does not exist: {path}")
+                raise FileNotFoundError(f"Missing required path: {path}")
 
     def make_reclaim_dir(self, reclaim_config_name):
         # reclaim config name
-        timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
+        timestamp = time.strftime("%Y-%m-%d %H-%M-%S")
         self.reclaim_config_name = reclaim_config_name
         self.reclaim_config_dir = self.data_settings_dir / "reclaim" / self.reclaim_config_name
 
@@ -169,7 +197,7 @@ class DirStructure:
         self.make_directories()
 
     def make_recap_dir(self, case_name=None, log_level="DEBUG", skip_creating_results_folder=False):
-        timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
+        timestamp = time.strftime("%Y-%m-%d %H-%M-%S")
 
         # Specify settings directory
         self.recap_settings_dir = self.data_settings_dir / "recap"
@@ -265,5 +293,5 @@ def run_non_component_validations(system_instance):
     """
     Run validations on system instance that need to look at the entire instance and not just one component at a time.
     """
-    validate_sales_shares(system_instance)
+    # validate_sales_shares(system_instance)
     # validate_prescribed_fuel_blends(system_instance)

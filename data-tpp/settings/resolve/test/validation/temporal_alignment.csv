@@ -1,0 +1,4 @@
+scenarios,profile_type_1,profile_type_2,alignment_type,timestamp,period,temporal_structure
+base,load,hydro,hourly_match,1,1,default
+base,hydro,transmission,period_match,1,1,default
+base,load,reserves,hourly_match,1,1,default 

@@ -1,0 +1,19 @@
+2025-01-22 14:41:01.416 | DEBUG    | new_modeling_toolkit.core.component:from_csv:418 - Reading from C:\Users\rudde\Documents\gst-resolve\gst-resolve\data-tpp\settings\resolve\test\attributes.csv
+2025-01-22 14:41:01.446 | INFO     | new_modeling_toolkit.resolve.model_formulation:_get_settings:130 - Reading scenario settings
+2025-01-22 14:41:01.457 | ERROR    | __main__:main:243 - Case test failed. See error traceback below:
+2025-01-22 14:41:01.462 | ERROR    | __main__:main:244 - Traceback (most recent call last):
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 229, in main
+    resolve_model = _run_case(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 125, in _run_case
+    _, resolve_model = model_formulation.ResolveCase.from_csv(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\core\component.py", line 432, in from_csv
+    return cls._parse_vintages(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\core\component.py", line 334, in _parse_vintages
+    vintages[attrs["name"]] = cls(**attrs)
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\model_formulation.py", line 101, in __init__
+    kwargs = self._get_settings(kwargs)
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\model_formulation.py", line 135, in _get_settings
+    logger.info(f"Reading data for System instance {kwargs['system']}")
+KeyError: 'system'
+
+2025-01-22 14:41:01.470 | INFO     | __main__:main:250 - Done.

@@ -1,0 +1,5 @@
+scenarios,component_name,validation_type,required_fields,timestamp,period,component_category
+base,load,input_data,"zone,profile,temporal_structure",1,1,system
+base,hydro,resource_data,"capacity,profile,constraints",1,1,resources
+base,transmission,network_data,"from_zone,to_zone,capacity",1,1,network
+base,reserves,requirement_data,"zone,type,fraction",1,1,reliability 

@@ -1,0 +1,5 @@
+scenarios,setting_name,value,timestamp,period,temporal_structure
+base,representative_periods,12,1,1,default
+base,hours_per_period,24,1,1,default
+base,investment_years,2025;2026,1,1,default
+base,weather_years,2010,1,1,default 

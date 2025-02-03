@@ -1,0 +1,5 @@
+scenarios,constraint_type,validation_metric,threshold,timestamp,period,solver_component
+base,load_balance,dual_value,1e-6,1,1,energy_balance
+base,transmission_flow,slack_value,1e-6,1,1,transmission
+base,reserve_requirement,shadow_price,1e-6,1,1,reserves
+base,hydro_energy,reduced_cost,1e-6,1,1,resources 

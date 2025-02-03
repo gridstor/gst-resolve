@@ -1,0 +1,4 @@
+setting_name,value,scenario,zone
+peak_load_mw,30000,base,CAISO
+annual_energy_gwh,200000,base,CAISO
+load_growth_rate,0.01,base,CAISO 

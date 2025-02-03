@@ -1,0 +1,2 @@
+scenario,technology,category,can_provide_reserves,rps_eligible,carbon_rate_ton_per_mwh,timestamp,period,tech_category
+base,hydro,dispatchable,true,true,0,1,1,renewable 

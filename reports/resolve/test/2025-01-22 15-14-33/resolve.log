@@ -1,0 +1,23 @@
+2025-01-22 15:14:33.708 | ERROR    | __main__:main:229 - Case test failed. See error traceback below:
+2025-01-22 15:14:33.728 | ERROR    | __main__:main:230 - Traceback (most recent call last):
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 215, in main
+    resolve_model = _run_case(
+  File "C:\Users\rudde\Documents\gst-resolve\gst-resolve\new_modeling_toolkit\resolve\run_opt.py", line 122, in _run_case
+    cases_df = pd.read_csv(dir_str.resolve_settings_dir / "cases_to_run.csv")
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\util\_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\util\_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\parsers\readers.py", line 950, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\parsers\readers.py", line 605, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\parsers\readers.py", line 1442, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\parsers\readers.py", line 1735, in _make_engine
+    self.handles = get_handle(
+  File "C:\Users\rudde\anaconda3\envs\kit\lib\site-packages\pandas\io\common.py", line 856, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\rudde\\Documents\\gst-resolve\\gst-resolve\\data-tpp\\settings\\resolve\\test\\cases_to_run.csv'
+
+2025-01-22 15:14:33.743 | INFO     | __main__:main:236 - Done.
