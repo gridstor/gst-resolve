@@ -14,7 +14,7 @@ from pyomo.opt import SolverFactory
 from pyomo.opt import TerminationCondition
 
 from new_modeling_toolkit import __version__
-from new_modeling_toolkit.core import stream
+from new_modeling_toolkit.core.utils.logging_fix import configure_logging, ThreadSafeStreamToLogger
 from new_modeling_toolkit.core.utils.core_utils import timer
 from new_modeling_toolkit.core.utils.util import DirStructure
 from new_modeling_toolkit.resolve import export_results
@@ -22,6 +22,8 @@ from new_modeling_toolkit.resolve import model_formulation
 from new_modeling_toolkit.resolve.export_results_summary import export_all_results_summary
 from new_modeling_toolkit.resolve.model_formulation import ResolveCase
 
+# Initialize thread-safe stream logger
+stream = ThreadSafeStreamToLogger(level="INFO")
 
 @timer
 def solve(
@@ -190,7 +192,10 @@ def main(
     ),
     # TODO (2022-02-22): This should be restricted to only "approved" extras
 ) -> Optional[list[ResolveCase]]:
+    # Configure logging once at the start
+    configure_logging(log_level=log_level, log_json=log_json)
     logger.info(f"Resolve version: {__version__}")
+    
     # Create folder for the specific resolve run
     dir_str = DirStructure(data_folder=data_folder)
     if resolve_settings_name:
@@ -201,11 +206,7 @@ def main(
     resolve_cases = []
     for resolve_settings_name in cases_to_run:
         logger.info(f"Loading Resolve case: {resolve_settings_name}")
-        # Remove default loguru logger to stderr
-        logger.remove()
-        # Set stdout logging level
-        logger.add(sys.__stdout__, level=log_level, serialize=log_json)
-
+        
         # Make folders
         dir_str.make_resolve_dir(resolve_settings_name=resolve_settings_name, log_level=log_level)
         TempfileManager.tempdir = dir_str.output_resolve_dir
@@ -222,7 +223,6 @@ def main(
             )
             if return_cases:
                 resolve_cases.append(resolve_model)
-
         else:
             try:
                 resolve_model = _run_case(
